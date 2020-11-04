@@ -7,6 +7,8 @@ namespace LeadManageAPI.Model
 {
     public interface ILeadRepository
     {
+        public IEnumerable<Lead> GetAll();
 
+        public void Add(Lead lead);
     }
 }

@@ -22,6 +22,14 @@ namespace LeadManageAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<LeadContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("LeadDatabase")));
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
             services.AddControllers();
         }
 

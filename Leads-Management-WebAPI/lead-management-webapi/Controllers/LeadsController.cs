@@ -70,7 +70,7 @@ namespace LeadManageAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
 
         // POST: api/Leads
@@ -99,6 +99,15 @@ namespace LeadManageAPI.Controllers
             await _context.SaveChangesAsync();
 
             return lead;
+        }
+
+        [HttpGet("filter")]
+        public async Task<ActionResult<IEnumerable<Lead>>> FilterByDate( string from, string to)
+        {
+            DateTime fromDate = DateTime.Parse(from);
+            DateTime toDate = DateTime.Parse(to);
+            var results = await _context.Leads.Where(t => (t.CreatedDate.Date >= fromDate.Date && t.CreatedDate.Date<=toDate.Date)).ToListAsync();
+            return results;
         }
 
         private bool LeadExists(int id)
